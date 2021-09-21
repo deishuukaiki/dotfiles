@@ -24,8 +24,6 @@ pipewire &
 /home/maciej/.scripts/xrandr.sh; sleep 1;
 /home/maciej/.scripts/wallpaper.sh &
 
-picom -b &
-
 case "$2" in
 
   'dwm')
