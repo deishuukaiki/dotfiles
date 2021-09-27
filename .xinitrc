@@ -17,12 +17,16 @@ xrdb -merge ~/.config/.Xresources &
 # polish keyboard
 setxkbmap pl &
 
+# set alsa volume of speakers
+amixer -c 0 set Speaker 100
+
 # pipewire
 pipewire &
 
 # xrandr and xwallpaper
-/home/maciej/.scripts/xrandr.sh; sleep 1;
-/home/maciej/.scripts/wallpaper.sh &
+#/home/maciej/.scripts/xrandr.sh; sleep 1;
+#/home/maciej/.scripts/wallpaper.sh &
+xwallpaper --center /usr/share/wallpaper.jpg
 
 case "$2" in
 
