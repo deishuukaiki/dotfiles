@@ -18,7 +18,8 @@ xrdb -merge ~/.config/.Xresources &
 setxkbmap pl &
 
 # set alsa volume of speakers
-amixer -c 0 set Speaker 100
+# UNCOMMENT ON LAPTOP!!!
+# amixer -c 0 set Speaker 100
 
 # pipewire
 pipewire &
