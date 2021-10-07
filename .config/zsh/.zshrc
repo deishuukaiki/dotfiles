@@ -16,11 +16,11 @@
   ZSH_CONFIG_DIR=/home/maciej/.config/zsh
 
 # XDG DIRS
-export XDG_DESKTOP_DIR="$HOME/downloads"
-export XDG_DOWNLOAD_DIR="$HOME/downloads"
-export XDG_MUSIC_DIR="$HOME/media/music"
-export XDG_PICTURES_DIR="$HOME/media/pictures"
-export XDG_VIDEOS_DIR="$HOME/media/videos"
+  export XDG_DESKTOP_DIR="$HOME/downloads"
+  export XDG_DOWNLOAD_DIR="$HOME/downloads"
+  export XDG_MUSIC_DIR="$HOME/media/music"
+  export XDG_PICTURES_DIR="$HOME/media/pictures"
+  export XDG_VIDEOS_DIR="$HOME/media/videos"
 
 # AUTOCOMPLETION
   autoload -Uz compinit
@@ -41,69 +41,70 @@ export XDG_VIDEOS_DIR="$HOME/media/videos"
 
 # OTHER
   setopt extended_glob
-  SAVEHIST=1000
+  SAVEHIST=2000
 
 # PLUGINS
 
   # ANTIGEN
 
     # source antigen
-    source "$ZSH_CONFIG_DIR/antigen.zsh"
+      source "$ZSH_CONFIG_DIR/antigen.zsh"
 
     # use oh-my-zsh library
-    antigen use oh-my-zsh
+      antigen use oh-my-zsh
 
     # bundle
-    antigen bundle zsh-users/zsh-completions
-    antigen bundle autojump
-    antigen bundle fdw/ranger-autojump
-    antigen bundle zsh-users/zsh-autosuggestions
-    antigen bundle --branch=main softmoth/zsh-vim-mode
-    antigen bundle copyfile
-    antigen bundle copybuffer
-    antigen bundle copydir
-    antigen bundle zsh_reload
-    antigen bundle history
-    antigen bundle alexrochas/zsh-extract
-    antigen bundle zdharma/fast-syntax-highlighting 
+      antigen bundle zsh-users/zsh-completions
+      antigen bundle autojump
+      antigen bundle fdw/ranger-autojump
+      antigen bundle zsh-users/zsh-autosuggestions
+      antigen bundle --branch=main softmoth/zsh-vim-mode
+      antigen bundle copyfile
+      antigen bundle copybuffer
+      antigen bundle copydir
+      antigen bundle zsh_reload
+      antigen bundle history
+      antigen bundle alexrochas/zsh-extract
+      antigen bundle zdharma/fast-syntax-highlighting 
   
     # theme
-    antigen theme bira
-    antigen apply
+      antigen theme bira
+      antigen apply
+      fast-theme -q q-jmnemonic
 
   # VI mode cursor styling
-
-  MODE_CURSOR_VIINS="#ffffff blinking bar"
-  MODE_CURSOR_REPLACE="#ffffff blinking underline"
-  MODE_CURSOR_VICMD="#ffffff block"
-  MODE_CURSOR_SEARCH="#ffffff steady underline"
-  MODE_CURSOR_VISUAL="#ffffff steady underline"
-  MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL"
+    MODE_CURSOR_VIINS="#ffffff blinking bar"
+    MODE_CURSOR_REPLACE="#ffffff blinking underline"
+    MODE_CURSOR_VICMD="#ffffff block"
+    MODE_CURSOR_SEARCH="#ffffff steady underline"
+    MODE_CURSOR_VISUAL="#ffffff steady underline"
+    MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL"
 
   # AUTOSUGGESTIONS settings
-
-  ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-  bindkey '^F' autosuggest-accept
+    ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+    bindkey '^F' autosuggest-accept
  
 # ALIASES
 
   # vim
-  alias vim="nvim"
-  alias notes="vim ~/Documents/notes"
+    alias vim="nvim"
+    alias notes="vim ~/Documents/notes"
 
   # doas
-  alias sudo="doas"
+    alias sudo="doas"
 
   # ssh
-  alias ssh223="ssh root@192.168.50.223"
-  alias ssh210="ssh usr@192.168.50.210 -p 8022"
-  alias ssh107="ssh monika@192.168.50.107"
+    alias ssh223="ssh root@192.168.50.223"
+    alias ssh210="ssh usr@192.168.50.210 -p 8022"
+    alias ssh107="ssh monika@192.168.50.107"
+    alias ssh127="ssh maciej@192.168.50.127"
 
   # vnc
-  alias startvncserver="x0vncserver -PasswordFile ~/.vnc/passwd"
+    alias startvncserver="x0vncserver -PasswordFile ~/.vnc/passwd"
 
   # wget
-  alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
-  
-  # flameshot
-  alias fsgui='flameshot gui'
+    alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
+
+  # steam
+    alias steam='steam -no-browser +open steam://open/minigameslist'
+    alias steamclient='\steam'
