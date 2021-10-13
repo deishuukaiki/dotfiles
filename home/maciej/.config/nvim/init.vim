@@ -26,7 +26,11 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'itchyny/lightline.vim'
   Plug 'kyazdani42/nvim-web-devicons' " for file icons
   Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'https://github.com/sagarrakshe/toggle-bool'
 call plug#end()
+
+" TOGGLE BOOL
+  noremap <C-r> :ToggleBool<CR>
 
 " TREE SETTINGS
   source ~/.config/nvim/plug-config/tree.vim
