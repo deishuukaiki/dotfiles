@@ -30,7 +30,7 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 " TOGGLE BOOL
-  noremap <C-r> :ToggleBool<CR>
+  noremap <C-w> :ToggleBool<CR>
 
 " TREE SETTINGS
   source ~/.config/nvim/plug-config/tree.vim
