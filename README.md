@@ -1,4 +1,4 @@
-My dotfiles for:
+My dotfiles for
 zsh,
 neovim,
 mpv,
