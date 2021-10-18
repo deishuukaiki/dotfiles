@@ -39,8 +39,8 @@ let g:nvim_tree_window_picker_exclude = {
 " selectable.
 let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 } " List of filenames that gets highlighted with NvimTreeSpecialFile
 let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 0,
+    \ 'git': 0,
+    \ 'folders': 1,
     \ 'files': 0,
     \ 'folder_arrows': 0,
     \ }
@@ -53,32 +53,32 @@ let g:nvim_tree_show_icons = {
 " default will show icon by default if no icon is provided
 " default shows no icon by default
 let g:nvim_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
+    \ 'default': '☰ ',
+    \ 'symlink': '➤ ',
     \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★",
-    \   'deleted': "",
-    \   'ignored': "◌"
+    \   'unstaged': "✗ ",
+    \   'staged': "✓ ",
+    \   'unmerged': " ",
+    \   'renamed': "➜ ",
+    \   'untracked': "★ ",
+    \   'deleted': "🗑 ",
+    \   'ignored': "◌ "
     \   },
     \ 'folder': {
-    \   'arrow_open': "",
-    \   'arrow_closed': "",
-    \   'default': "",
-    \   'open': "",
-    \   'empty': "",
-    \   'empty_open': "",
-    \   'symlink': "",
-    \   'symlink_open': "",
+    \   'arrow_open': "> ",
+    \   'arrow_closed': "ᐅ ",
+    \   'default': " ",
+    \   'open': " ",
+    \   'empty': " ",
+    \   'empty_open': " ",
+    \   'symlink': " ",
+    \   'symlink_open': " ",
     \   },
     \   'lsp': {
-    \     'hint': "",
-    \     'info': "",
-    \     'warning': "",
-    \     'error': "",
+    \     'hint': " ",
+    \     'info': " ",
+    \     'warning': " ",
+    \     'error': " ",
     \   }
     \ }
 
