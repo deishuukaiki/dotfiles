@@ -16,18 +16,24 @@ set number relativenumber
 set noswapfile
 " dont wrap lines
 set nowrap
+" highlight current line
+set cursorline
+" dont show mode under statusline
+set noshowmode
 
 " PLUG
 call plug#begin('~/.config/nvim/plugged')
-  Plug 'joshdick/onedark.vim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-compe'
   Plug 'tpope/vim-commentary'
-  Plug 'itchyny/lightline.vim'
   Plug 'kyazdani42/nvim-web-devicons' " for file icons
   Plug 'kyazdani42/nvim-tree.lua'
   Plug 'https://github.com/sagarrakshe/toggle-bool'
+  Plug 'nvim-lualine/lualine.nvim'
 call plug#end()
+
+" LUALINE
+  lua require('statusline')
 
 " TOGGLE BOOL
   noremap <C-w> :ToggleBool<CR>
@@ -45,14 +51,10 @@ call plug#end()
   nnoremap <A-n> :tabnew<CR>
 
 " COLORSCHEME
-  source $HOME/.config/nvim/plug-config/onedark.vim
+  source $HOME/.config/nvim/plug-config/base16-tomorrow-night.vim
   highlight Comment          guifg=#318fcf ctermfg=4    guibg=none    ctermbg=none  cterm=italic
   highlight LspDiagnosticsVirtualTextHint guibg=none ctermbg=none
   highlight LspDiagnosticsVirtualTextError guibg=none ctermbg=none
   highlight LspDiagnosticsVirtualTextWarning guibg=none ctermbg=none
   highlight LspDiagnosticsVirtualTextInformation guibg=none ctermbg=none
   highlight Pmenu guibg=#111122
-  
-  let g:lightline = {
-        \ 'colorscheme': 'one',
-        \ }
