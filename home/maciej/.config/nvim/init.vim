@@ -25,18 +25,20 @@ set noshowmode
 call plug#begin('~/.config/nvim/plugged')
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-compe'
-  Plug 'tpope/vim-commentary'
+  Plug 'nvim-lualine/lualine.nvim'
+  Plug 'kdheepak/tabline.nvim'
   Plug 'kyazdani42/nvim-web-devicons' " for file icons
   Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'tpope/vim-commentary'
   Plug 'https://github.com/sagarrakshe/toggle-bool'
-  Plug 'nvim-lualine/lualine.nvim'
 call plug#end()
 
 " LUALINE
-  lua require('statusline')
+  lua require('tabline').setup { enable = false }
+  lua require('lualineconfig')
 
 " TOGGLE BOOL
-  noremap <C-w> :ToggleBool<CR>
+  noremap <C-g> :ToggleBool<CR>
 
 " TREE SETTINGS
   source ~/.config/nvim/plug-config/tree.vim
