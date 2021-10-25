@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-PS1=' \[\e[0;92m\]\u\[\e[0;1m\]@\[\e[0;95m\]\h \[\e[0;1m\]λ\[\e[0m\] '
+ PS1=' \[\e[0;92m\]\u\[\e[0;1m\]@\[\e[0;95m\]\h \[\e[0;96m\]\W \[\e[0;1m\]λ \[\e[0m\]'
 
 # AUTOCOMPLETION
   complete -cf doas
@@ -15,6 +15,9 @@ PS1=' \[\e[0;92m\]\u\[\e[0;1m\]@\[\e[0;95m\]\h \[\e[0;1m\]λ\[\e[0m\] '
 
 # VI MODE
   set -o vi
+
+# AUTOJUMP
+  [[ -s /home/maciej/.autojump/etc/profile.d/autojump.sh ]] && source /home/maciej/.autojump/etc/profile.d/autojump.sh
 
 # PREVENT NESTED RANGER INSTANCES
   ranger() {
