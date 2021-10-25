@@ -28,10 +28,17 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'kdheepak/tabline.nvim'
   Plug 'kyazdani42/nvim-web-devicons' " for file icons
-  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'kevinhwang91/rnvimr'
   Plug 'tpope/vim-commentary'
   Plug 'https://github.com/sagarrakshe/toggle-bool'
 call plug#end()
+
+" RNVIMR
+  let g:rnvimr_enable_ex = 1
+  let g:rnvimr_enable_picker = 1
+  let g:rnvimr_draw_border = 1
+  highlight link RnvimrNormal CursorLine
+  nnoremap <silent> <A-t> :RnvimrToggle<CR>
 
 " LUALINE
   lua require('tabline').setup { enable = false }
@@ -39,9 +46,6 @@ call plug#end()
 
 " TOGGLE BOOL
   noremap <C-g> :ToggleBool<CR>
-
-" TREE SETTINGS
-  source ~/.config/nvim/plug-config/tree.vim
 
 " LSP SETTINGS
   source ~/.config/nvim/plug-config/lsp-config.vim
