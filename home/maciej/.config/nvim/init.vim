@@ -47,13 +47,16 @@ call plug#end()
 " TOGGLE BOOL
   noremap <C-g> :ToggleBool<CR>
 
+" TREE SETTINGS
+  " source ~/.config/nvim/plug-config/tree.vim
+
 " LSP SETTINGS
   source ~/.config/nvim/plug-config/lsp-config.vim
   lua require('lsp')
 
 " TABS
-  nnoremap <A-,> :tabprev<CR>
-  nnoremap <A-.> :tabnext<CR>
+  nnoremap <A-,> :bp<CR>
+  nnoremap <A-.> :bn<CR>
   nnoremap <A-n> :tabnew<CR>
 
 " COLORSCHEME
