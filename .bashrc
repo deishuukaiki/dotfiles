@@ -28,13 +28,6 @@ PS1='\[\e[0;92m\]\u\[\e[0;1m\]@\[\e[0;95m\]\h \[\e[0;96m\]\W \[\e[0;1m\]λ \[\e[
       fi
   }
 
-# XDG DIRS
-  export XDG_DESKTOP_DIR="$HOME/downloads"
-  export XDG_DOWNLOAD_DIR="$HOME/downloads"
-  export XDG_MUSIC_DIR="$HOME/media/music"
-  export XDG_PICTURES_DIR="$HOME/media/pictures"
-  export XDG_VIDEOS_DIR="$HOME/media/videos"
-
 # ENVIRONMENT VARIABLES
   export VISUAL=/usr/bin/nvim
   export EDITOR=/usr/bin/nvim
@@ -66,4 +59,3 @@ PS1='\[\e[0;92m\]\u\[\e[0;1m\]@\[\e[0;95m\]\h \[\e[0;96m\]\W \[\e[0;1m\]λ \[\e[
 
   # copy content of file
     alias copyfile="xclip -selection clipboard -i < "
-
