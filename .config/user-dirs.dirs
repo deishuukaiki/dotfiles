@@ -1,0 +1,8 @@
+XDG_DESKTOP_DIR="$HOME/downloads"
+XDG_DOCUMENTS_DIR="$HOME/serwer/maciej"
+XDG_DOWNLOAD_DIR="$HOME/downloads"
+XDG_MUSIC_DIR="$HOME/serwer/media/music"
+XDG_PICTURES_DIR="$HOME/serwer/media/pictures"
+XDG_PUBLICSHARE_DIR="$HOME/serwer"
+XDG_TEMPLATES_DIR="$HOME/projects"
+XDG_VIDEOS_DIR="$HOME/serwer/media/videos"
