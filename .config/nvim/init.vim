@@ -7,7 +7,7 @@ set shiftwidth=2
 " something
 set termguicolors
 " needed for compe
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 " popupmenu transparency
 set pumblend=10
 " hybrid line numbers
@@ -32,7 +32,12 @@ lua << EOF
   local use = user.use
 
   use "neovim/nvim-lspconfig"
-  use "hrsh7th/nvim-compe"
+  use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-buffer"
+  use "hrsh7th/cmp-path"
+  use "hrsh7th/cmp-cmdline"
+  use "hrsh7th/nvim-cmp"
+  use "hrsh7th/nvim-cmp"
   use "nvim-lualine/lualine.nvim"
   use "kdheepak/tabline.nvim"
   use "kyazdani42/nvim-web-devicons"
@@ -55,9 +60,8 @@ EOF
 " TOGGLE BOOL
   noremap <C-g> :ToggleBool<CR>
 
-" LSP SETTINGS
-  source ~/.config/nvim/plug-config/lsp-config.vim
-  lua require('lsp')
+" LSP AND CMP
+  lua require('completion')
   highlight Pmenu guibg=#111122
 
 " TABS
