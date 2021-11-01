@@ -69,6 +69,11 @@
 
 # ALIASES
 
+  # general improvements
+    alias ls="ls -1 --color=auto --quoting-style=literal --group-directories-first"
+    alias ll="ls -lah1 --color=auto --quoting-style=literal --group-directories-first"
+    alias la="ls -a1 --color=auto --quoting-style=literal --group-directories-first"
+
   # doas
     alias sudo="doas"
 
