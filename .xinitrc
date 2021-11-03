@@ -23,24 +23,13 @@ setxkbmap pl &
 
 # pipewire
 pipewire &
+pipewire-media-session &
+pipewire-pulse &
 
 # xrandr and xwallpaper
-#/home/maciej/.scripts/xrandr.sh; sleep 1;
-#/home/maciej/.scripts/wallpaper.sh &
-xwallpaper --center /usr/share/wallpaper.jpg
+# $HOME/scripts/xrandr.sh; sleep 1;
+# $HONE/scripts/wallpaper.sh &
+# xwallpaper --center /usr/share/wallpaper.jpg
 
-case "$2" in
-
-  'dwm')
-      dwmblocks & exec dbus-launch dwm
-    ;;
-
-  '')
-      dwmblocks & exec dbus-launch dwm
-    ;;
-
-  'bspwm')
-    exec bspwm
-    ;;
-
-esac
+dwmblocks &
+dwm

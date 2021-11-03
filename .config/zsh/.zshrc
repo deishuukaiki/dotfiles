@@ -54,8 +54,6 @@
       antigen bundle copybuffer
       antigen bundle history
       antigen bundle alexrochas/zsh-extract
-      antigen bundle zdharma/fast-syntax-highlighting 
-      antigen bundle zsh-users/zsh-autosuggestions
 
       antigen apply
   
