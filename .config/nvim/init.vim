@@ -43,8 +43,7 @@ lua << EOF
   use "kyazdani42/nvim-web-devicons"
   use "kevinhwang91/rnvimr"
   use "tpope/vim-commentary"
-  use "sagarrakshe/toggle-bool"
-  use "chriskempson/base16-vim"
+  use "RRethy/nvim-base16"
 
   user.flush()
 
@@ -69,20 +68,8 @@ EOF
   nnoremap <A-.> :bn<CR>
   nnoremap <A-n> :tabnew<CR>
 
-" COLORSCHEME
-  colorscheme base16-tomorrow-night
-  function! s:base16_customize() abort
-    call Base16hi("LineNr", g:base16_gui03, g:base16_gui00, g:base16_cterm03, g:base16_cterm05, "", "")
-    call Base16hi("LspDiagnosticsSignError", g:base16_gui0A, g:base16_gui01, "", "", "", "")
-    call Base16hi("LspDiagnosticsSignWarning", g:base16_gui08, g:base16_gui01, "", "", "", "")
-    call Base16hi("LspDiagnosticsSignInformation", g:base16_gui0D, g:base16_gui01, "", "", "", "")
-    call Base16hi("LspDiagnosticsSignHint", g:base16_gui03, g:base16_gui01, "", "", "", "")
-  endfunction
-
-  augroup on_change_colorschema
-    autocmd!
-    autocmd ColorScheme * call s:base16_customize()
-  augroup END
+" ColorScheme
+colorscheme base16-tomorrow-night
   
 " LUALINE
 lua require('tabline').setup { enable = false, options = { show_filename_only = true } }
