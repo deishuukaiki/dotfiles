@@ -29,11 +29,10 @@
   export EDITOR=/usr/bin/nvim
   export PATH="$PATH:/home/maciej/.local/bin"
   export KEYTIMEOUT=10
-  export BROWSER=librewolf
+  export BROWSER=firefox
   export ADOTDIR="$HOME/.config/antigen"
   export GNUPGHOME="$XDG_DATA_HOME/gnupg"
   export QT_QPA_PLATFORMTHEME="qt5ct"
-  ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
 # OTHER
   setopt extended_glob
@@ -48,6 +47,7 @@
 
     # bundle
       antigen bundle zsh-users/zsh-completions
+      antigen bundle zsh-users/zsh-autosuggestions
       antigen bundle autojump
       antigen bundle fdw/ranger-autojump
       antigen bundle --branch=main softmoth/zsh-vim-mode
@@ -65,6 +65,10 @@
     MODE_CURSOR_SEARCH="#ffffff steady underline"
     MODE_CURSOR_VISUAL="#ffffff steady underline"
     MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL"
+
+  # AUTOSUGGESTIONS
+    bindkey '^F' autosuggest-accept
+    ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 
 # ALIASES
 
