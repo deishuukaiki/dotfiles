@@ -36,7 +36,17 @@
 
 # OTHER
   setopt extended_glob
-  SAVEHIST=2000
+
+# HISTORY
+  SAVEHIST=5000
+  HISTSIZE=5000
+  setopt BANG_HIST
+  setopt EXTENDED_HISTORY
+  setopt SHARE_HISTORY
+  setopt HIST_IGNORE_DUPS
+  setopt inc_append_history
+
+  
 
 # PLUGINS
 
