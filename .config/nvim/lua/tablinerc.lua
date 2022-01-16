@@ -1,6 +1,6 @@
 require'tabline'.setup {
   -- Defaults configuration options
-  enable = false,
+  enable = true,
   options = {
   -- If lualine is installed tabline will use separators configured in lualine by default.
   -- These options can be used to override those settings.
@@ -16,4 +16,6 @@ require'tabline'.setup {
 vim.cmd[[
   set guioptions-=e " Use showtabline in gui vim
   set sessionoptions+=tabpages,globals " store tabpages and globals in session
+  nnoremap <silent> t :TablineBufferNext<CR>
+  nnoremap <silent> T :TablineBufferPrevious<CR>
 ]]

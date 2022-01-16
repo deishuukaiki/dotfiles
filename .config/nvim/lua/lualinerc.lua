@@ -1,21 +1,21 @@
-local custom_auto = require'lualine.themes.auto'
-custom_auto.inactive.c.bg = '#2c2f32'
-custom_auto.normal.c.bg = '#2c2f32'
-custom_auto.visual.c.bg = '#2c2f32'
-custom_auto.replace.c.bg = '#2c2f32'
-custom_auto.insert.c.bg = '#2c2f32'
-custom_auto.command.c.bg = '#2c2f32'
-custom_auto.inactive.b.bg = '#3c4047'
-custom_auto.normal.b.bg = '#3c4047'
-custom_auto.visual.b.bg = '#3c4047'
-custom_auto.replace.b.bg = '#3c4047'
-custom_auto.insert.b.bg = '#3c4047'
-custom_auto.command.b.bg = '#3c4047'
+-- local custom_auto = require'lualine.themes.auto'
+-- custom_auto.inactive.c.bg = '#2c2f32'
+-- custom_auto.normal.c.bg = '#2c2f32'
+-- custom_auto.visual.c.bg = '#2c2f32'
+-- custom_auto.replace.c.bg = '#2c2f32'
+-- custom_auto.insert.c.bg = '#2c2f32'
+-- custom_auto.command.c.bg = '#2c2f32'
+-- custom_auto.inactive.b.bg = '#3c4047'
+-- custom_auto.normal.b.bg = '#3c4047'
+-- custom_auto.visual.b.bg = '#3c4047'
+-- custom_auto.replace.b.bg = '#3c4047'
+-- custom_auto.insert.b.bg = '#3c4047'
+-- custom_auto.command.b.bg = '#3c4047'
 
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = custom_auto,
+    theme = auto,
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = ''},
     disabled_filetypes = {},
@@ -23,8 +23,7 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff',
-                  {'diagnostics', sources={'nvim_lsp', 'coc'}}},
+    lualine_b = {'branch', 'diff', 'nvim_diagnostics'},
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'filetype'},
     lualine_y = {'progress'},
