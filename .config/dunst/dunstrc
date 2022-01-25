@@ -2,12 +2,14 @@
   monitor = 0
   frame_color = "#755b93"
   frame_width = 2
-  geometry = "600x5-23+23"
+  width = "600"
+  height = "100"
+  offset = "35x35"
   progress_bar = true
   progress_bar_height = 10
   progress_bar_frame_width = 1
   progress_bar_min_width = 150
-  progress_bar_max_width = 300
+  progress_bar_max_width = 600
   shrink = no
   transparency = 0
   notification_height = 0
