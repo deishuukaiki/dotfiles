@@ -22,7 +22,7 @@ config.set('content.cookies.store', True)
 # user-agent
 # config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}')
 # don't allow notifications
-# config.set('content.notifications.enabled', False)
+config.set('content.notifications.enabled', False)
 
 # download dir
 c.downloads.location.directory = '~/downloads'
@@ -41,3 +41,5 @@ config.source('nord-qutebrowser.py')
 # privacy
 config.set('content.canvas_reading', True)
 config.set('content.webgl', False)
+
+config.set('content.fullscreen.window', True)
