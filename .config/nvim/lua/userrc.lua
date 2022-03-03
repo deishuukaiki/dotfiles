@@ -8,7 +8,9 @@
   use "hrsh7th/cmp-path"
   use "hrsh7th/cmp-cmdline"
   use "hrsh7th/nvim-cmp"
-  -- use "glepnir/lspsaga.nvim"
+  use "tami5/lspsaga.nvim"
+
+  use "danilamihailov/beacon.nvim"
   use "nvim-lualine/lualine.nvim"
   use "kdheepak/tabline.nvim"
   use "kyazdani42/nvim-web-devicons"

@@ -34,7 +34,7 @@ set hidden
   
 " COMPLETION
   lua require('cmprc')
-  " lua require('lspsagarc')
+  lua require('lspsagarc')
   " highlight Pmenu guibg=#111122
 
 " TABLINE & LUALINE
