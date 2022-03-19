@@ -96,11 +96,11 @@
     alias ssh127="ssh maciej@192.168.50.127"
 
   # vnc
-    alias startvncserver="x0vncserver -PasswordFile ~/.vnc/passwd"
+    alias vncserver="x11vnc -nomodtweak -forever -repeat -display :0"
 
   # wget
     alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
 
-  # steam
-    alias steam='steam -no-browser +open steam://open/minigameslist'
-    alias steamclient='\steam'
+  # xmms2
+    alias mclear='xmms2 clear'
+    alias madd='xmms2 add'
