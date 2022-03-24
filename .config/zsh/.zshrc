@@ -36,6 +36,7 @@
 
 # OTHER
   setopt extended_glob
+  setopt interactivecomments
 
 # HISTORY
   SAVEHIST=5000
