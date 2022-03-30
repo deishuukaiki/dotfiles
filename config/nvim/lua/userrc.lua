@@ -8,7 +8,8 @@
   use "hrsh7th/cmp-path"
   use "hrsh7th/cmp-cmdline"
   use "hrsh7th/nvim-cmp"
-  use "tami5/lspsaga.nvim"
+  use "nvim-treesitter/nvim-treesitter"
+  use "windwp/nvim-ts-autotag"
 
   use "danilamihailov/beacon.nvim"
   use "nvim-lualine/lualine.nvim"
