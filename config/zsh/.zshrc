@@ -88,10 +88,10 @@
 
 # ALIASES
 
-  # ls
-    alias ls="ls -w$(($(tput cols)/2)) --color=auto --quoting-style=literal --group-directories-first"
+  # general improvements
+    alias ls="ls -w50 --color=auto --quoting-style=literal --group-directories-first"
     alias ll="ls -lah1 --color=auto --quoting-style=literal --group-directories-first"
-    alias la="ls -a -w$(($(tput cols)/2)) --color=auto --quoting-style=literal --group-directories-first"
+    alias la="ls -a -w50 --color=auto --quoting-style=literal --group-directories-first"
 
   # doas
     alias sudo="doas"
@@ -100,7 +100,6 @@
     alias ssh223="ssh root@192.168.50.223"
     alias ssh107="ssh monika@192.168.50.107"
     alias ssh127="ssh maciej@192.168.50.127"
-    alias ssh131="ssh maciej@192.168.50.127"
 
   # vnc
     alias vncserver="x11vnc -nomodtweak -forever -repeat -display :0"
@@ -111,10 +110,3 @@
   # xmms2
     alias mclear='xmms2 clear'
     alias madd='xmms2 add'
-
-  # cd
-    alias cd1="cd .."
-    alias cd2="cd ../.."
-    alias cd3="cd ../../.."
-    alias cd4="cd ../../../.."
-    alias cd5="cd ../../../../.."
