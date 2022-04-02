@@ -20,7 +20,8 @@ function parse_git_branch() {
 ZSH_CONFIG_DIR=/home/maciej/.config/zsh
 
 # AUTOCOMPLETION
-autoload -Uz compinit
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'r:|?=**'
 compinit
 
 # ENVIRONMENT VARIABLES
