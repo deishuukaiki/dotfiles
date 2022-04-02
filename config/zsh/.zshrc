@@ -21,7 +21,9 @@ ZSH_CONFIG_DIR=/home/maciej/.config/zsh
 
 # AUTOCOMPLETION
 autoload -Uz compinit && compinit
-zstyle ':completion:*' matcher-list 'r:|?=**'
+# zstyle ':completion:*' matcher-list 'r:|?=**'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
 compinit
 
 # ENVIRONMENT VARIABLES
