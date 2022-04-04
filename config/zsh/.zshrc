@@ -100,7 +100,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
     alias ssh223="ssh root@192.168.50.223"
     alias ssh107="ssh monika@192.168.50.107"
     alias ssh127="ssh maciej@192.168.50.127"
-    alias ssh131="ssh maciej@192.168.50.127"
+    alias ssh131="ssh maciej@192.168.50.131"
 
     # vnc
     alias vncserver="x11vnc -nomodtweak -forever -repeat -display :0"
