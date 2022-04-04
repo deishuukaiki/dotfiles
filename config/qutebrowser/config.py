@@ -32,8 +32,8 @@ config.set('content.notifications.enabled', False)
 c.downloads.location.directory = '~/downloads'
 
 # default pages
-c.url.default_page = 'http://homepage.mantrasultry.xyz'
-c.url.start_pages = 'http://homepage.mantrasultry.xyz'
+c.url.default_page = 'http://home.mantrasultry.xyz'
+c.url.start_pages = 'http://home.mantrasultry.xyz'
 c.url.searchengines = {'DEFAULT': 'https://searx.be/search?q={}'}
 
 # fonts and colors
