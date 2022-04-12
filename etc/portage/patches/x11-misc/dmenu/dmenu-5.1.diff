@@ -1,6 +1,6 @@
 diff -urN dmenu-5.1/config.h dmenu-5.1-custom/config.h
 --- dmenu-5.1/config.h	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/config.h	2022-04-12 17:01:09.447933572 +0200
++++ dmenu-5.1-custom/config.h	2022-04-12 16:08:01.516436020 +0200
 @@ -0,0 +1,23 @@
 +/* See LICENSE file for copyright and license details. */
 +/* Default settings; can be overriden by command line. */
@@ -26,8 +26,8 @@ diff -urN dmenu-5.1/config.h dmenu-5.1-custom/config.h
 + */
 +static const char worddelimiters[] = " ";
 diff -urN dmenu-5.1/dmenu.1 dmenu-5.1-custom/dmenu.1
---- dmenu-5.1/dmenu.1	2022-04-12 17:01:09.447933572 +0200
-+++ dmenu-5.1-custom/dmenu.1	2022-04-12 17:01:09.447933572 +0200
+--- dmenu-5.1/dmenu.1	2022-02-11 12:31:56.000000000 +0100
++++ dmenu-5.1-custom/dmenu.1	2022-04-12 15:57:18.406557191 +0200
 @@ -3,7 +3,7 @@
  dmenu \- dynamic menu
  .SH SYNOPSIS
@@ -48,8 +48,8 @@ diff -urN dmenu-5.1/dmenu.1 dmenu-5.1-custom/dmenu.1
  dmenu lists items vertically, with the given number of lines.
  .TP
 diff -urN dmenu-5.1/dmenu.c dmenu-5.1-custom/dmenu.c
---- dmenu-5.1/dmenu.c	2022-04-12 17:01:09.447933572 +0200
-+++ dmenu-5.1-custom/dmenu.c	2022-04-12 17:01:09.447933572 +0200
+--- dmenu-5.1/dmenu.c	2022-02-11 12:31:56.000000000 +0100
++++ dmenu-5.1-custom/dmenu.c	2022-04-12 15:57:18.406557191 +0200
 @@ -37,7 +37,7 @@
  static char text[BUFSIZ] = "";
  static char *embed;
@@ -115,7 +115,7 @@ diff -urN dmenu-5.1/dmenu.c dmenu-5.1-custom/dmenu.c
  		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
 diff -urN dmenu-5.1/dmenu.c.orig dmenu-5.1-custom/dmenu.c.orig
 --- dmenu-5.1/dmenu.c.orig	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu.c.orig	2022-04-12 17:01:09.447933572 +0200
++++ dmenu-5.1-custom/dmenu.c.orig	2022-04-12 15:48:54.696752048 +0200
 @@ -0,0 +1,789 @@
 +/* See LICENSE file for copyright and license details. */
 +#include <ctype.h>
@@ -908,8 +908,8 @@ diff -urN dmenu-5.1/dmenu.c.orig dmenu-5.1-custom/dmenu.c.orig
 +}
 diff -urN dmenu-5.1/dmenu_keepassxc dmenu-5.1-custom/dmenu_keepassxc
 --- dmenu-5.1/dmenu_keepassxc	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu_keepassxc	2022-04-12 20:02:39.747314301 +0200
-@@ -0,0 +1,74 @@
++++ dmenu-5.1-custom/dmenu_keepassxc	2022-04-12 22:06:37.162407330 +0200
+@@ -0,0 +1,71 @@
 +#!/usr/bin/env bash
 +
 +# Path to keepass database
@@ -920,14 +920,15 @@ diff -urN dmenu-5.1/dmenu_keepassxc dmenu-5.1-custom/dmenu_keepassxc
 +then
 +  database="/mnt/sftp/Passwords.kdbx"
 +else
-+  exit;
++  notify-send "keepassxc" "Please check if network shares are mounted" &&
++  exit
 +fi
 +
 +# Path to gpg encpypted file containing password for the database
 +passgpg="$HOME/.local/pass.gpg"
 +
-+[[ ! -e "$database" ]] && notify-send "keepmenu" "Please check if the database variable is set properly" && exit
-+[[ ! -e "$passgpg" ]] && notify-send "keepmenu" "Please check if the passgpg variable is set properly" && exit
++[[ ! -e "$database" ]] && notify-send "keepassxc" "Please check if the database variable is set properly" && exit
++[[ ! -e "$passgpg" ]] && notify-send "keepassxc" "Please check if the passgpg variable is set properly" && exit
 +
 +# Customize dmenu
 +dmenu="dmenu -i -l 20"
@@ -969,11 +970,7 @@ diff -urN dmenu-5.1/dmenu_keepassxc dmenu-5.1-custom/dmenu_keepassxc
 +# clipboard after the specified timeout.
 +# If the selected field is not password. copy its contents to the clipboard
 +if [[ "$field" == "Password" ]]; then
-+    if [[ "$entry" =~ .*/ ]]; then
-+        echo ${pass} | keepassxc-cli clip "${database}" "${entry}${gentry}" > /dev/null
-+    else
-+        echo ${pass} | keepassxc-cli clip "${database}" "${entry}" > /dev/null
-+    fi
++    echo ${pass} | keepassxc-cli clip "${database}" "${entry}" > /dev/null
 +    notify-send "keepassxc" "Password copied to clipboard for ${timeout} seconds"
 +    sleep $timeout
 +    echo '' | xclip -sel clip
@@ -986,7 +983,7 @@ diff -urN dmenu-5.1/dmenu_keepassxc dmenu-5.1-custom/dmenu_keepassxc
 +fi
 diff -urN dmenu-5.1/dmenu_run_history dmenu-5.1-custom/dmenu_run_history
 --- dmenu-5.1/dmenu_run_history	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu_run_history	2022-04-12 17:01:09.447933572 +0200
++++ dmenu-5.1-custom/dmenu_run_history	2022-03-06 01:27:02.943058882 +0100
 @@ -0,0 +1,50 @@
 +#!/bin/sh
 +
@@ -1040,7 +1037,7 @@ diff -urN dmenu-5.1/dmenu_run_history dmenu-5.1-custom/dmenu_run_history
 +	| while read cmd; do ${SHELL:-"/bin/sh"} -c "$cmd" & done
 diff -urN dmenu-5.1/dmenu_todo dmenu-5.1-custom/dmenu_todo
 --- dmenu-5.1/dmenu_todo	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu_todo	2022-04-12 17:01:09.447933572 +0200
++++ dmenu-5.1-custom/dmenu_todo	2022-03-23 15:28:05.868402240 +0100
 @@ -0,0 +1,36 @@
 +#!/bin/sh
 +#
@@ -1080,7 +1077,7 @@ diff -urN dmenu-5.1/dmenu_todo dmenu-5.1-custom/dmenu_todo
 +exit 0
 diff -urN dmenu-5.1/dmenu_xmms2 dmenu-5.1-custom/dmenu_xmms2
 --- dmenu-5.1/dmenu_xmms2	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu_xmms2	2022-04-12 17:01:09.447933572 +0200
++++ dmenu-5.1-custom/dmenu_xmms2	2022-04-08 13:12:32.586183277 +0200
 @@ -0,0 +1,46 @@
 +#!/bin/sh
 +
@@ -1129,8 +1126,8 @@ diff -urN dmenu-5.1/dmenu_xmms2 dmenu-5.1-custom/dmenu_xmms2
 +
 +
 diff -urN dmenu-5.1/Makefile dmenu-5.1-custom/Makefile
---- dmenu-5.1/Makefile	2022-04-12 17:01:09.447933572 +0200
-+++ dmenu-5.1-custom/Makefile	2022-04-12 18:15:06.687424627 +0200
+--- dmenu-5.1/Makefile	2022-02-11 12:31:56.000000000 +0100
++++ dmenu-5.1-custom/Makefile	2022-04-12 21:40:27.137552853 +0200
 @@ -42,10 +42,13 @@
  
  install: all
