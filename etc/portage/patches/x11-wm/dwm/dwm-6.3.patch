@@ -1,6 +1,6 @@
 diff -urN dwm-6.3/config.def.h dwm-6.3-custom/config.def.h
 --- dwm-6.3/config.def.h	2022-01-07 12:42:18.000000000 +0100
-+++ dwm-6.3-custom/config.def.h	2022-04-12 15:27:44.380918544 +0200
++++ dwm-6.3-custom/config.def.h	2022-04-12 17:01:09.451266979 +0200
 @@ -3,6 +3,16 @@
  /* appearance */
  static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -152,8 +152,8 @@ diff -urN dwm-6.3/config.def.h dwm-6.3-custom/config.def.h
  /* button definitions */
 diff -urN dwm-6.3/config.h dwm-6.3-custom/config.h
 --- dwm-6.3/config.h	1970-01-01 01:00:00.000000000 +0100
-+++ dwm-6.3-custom/config.h	2022-04-12 15:27:44.380918544 +0200
-@@ -0,0 +1,224 @@
++++ dwm-6.3-custom/config.h	2022-04-12 20:10:11.780754949 +0200
+@@ -0,0 +1,226 @@
 +/* See LICENSE file for copyright and license details. */
 +
 +/* appearance */
@@ -275,6 +275,7 @@ diff -urN dwm-6.3/config.h dwm-6.3-custom/config.h
 +static const char *dmenucmd[] = { "dmenu_run_history", "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_sel, "-sf", col_fg, NULL };
 +static const char *dmenutodocmd[] = { "dmenu_todo", "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_sel, "-sf", col_fg, NULL };
 +static const char *dmenuxmms2cmd[] = { "dmenu_xmms2", "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_sel, "-sf", col_fg, NULL };
++static const char *dmenukeepassxccmd[] = { "dmenu_keepassxc", "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_sel, "-sf", col_fg, NULL };
 +
 +static const char scratchpadname[] = "scratchpad";
 +static const char *scratchpadcmd[] = { "kitty", "--class", scratchpadname, "--title", scratchpadname, NULL };
@@ -299,9 +300,10 @@ diff -urN dwm-6.3/config.h dwm-6.3-custom/config.h
 +
 +	/* run programs */
 +  
-+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 +	{ MODKEY,                       XK_a,      spawn,          {.v = dmenutodocmd } },
 +	{ MODKEY,                       XK_s,      spawn,          {.v = dmenuxmms2cmd } },
++	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
++	{ MODKEY,                       XK_f,      spawn,          {.v = dmenukeepassxccmd } },
 +	{ MODKEY,			            XK_Return, spawn,          {.v = termcmd } },
 +	{ MODKEY|ShiftMask,		        XK_Return, spawn,          {.v = browsercmd } },
 +	{ MODKEY,			            XK_u,	   spawn,	   {.v = pulsemixercmd } },
@@ -380,7 +382,7 @@ diff -urN dwm-6.3/config.h dwm-6.3-custom/config.h
 +};
 diff -urN dwm-6.3/config.mk dwm-6.3-custom/config.mk
 --- dwm-6.3/config.mk	2022-01-07 12:42:18.000000000 +0100
-+++ dwm-6.3-custom/config.mk	2022-04-12 15:27:44.380918544 +0200
++++ dwm-6.3-custom/config.mk	2022-04-12 17:01:09.451266979 +0200
 @@ -19,10 +19,14 @@
  FREETYPEINC = /usr/include/freetype2
  # OpenBSD (uncomment)
@@ -399,7 +401,7 @@ diff -urN dwm-6.3/config.mk dwm-6.3-custom/config.mk
  CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
 diff -urN dwm-6.3/dwm.1 dwm-6.3-custom/dwm.1
 --- dwm-6.3/dwm.1	2022-01-07 12:42:18.000000000 +0100
-+++ dwm-6.3-custom/dwm.1	2022-04-12 15:27:44.380918544 +0200
++++ dwm-6.3-custom/dwm.1	2022-04-12 17:01:09.451266979 +0200
 @@ -116,6 +116,9 @@
  .B Mod1\-Shift\-c
  Close focused window.
@@ -436,7 +438,7 @@ diff -urN dwm-6.3/dwm.1 dwm-6.3-custom/dwm.1
  .BR st (1)
 diff -urN dwm-6.3/dwm.c dwm-6.3-custom/dwm.c
 --- dwm-6.3/dwm.c	2022-01-07 12:42:18.000000000 +0100
-+++ dwm-6.3-custom/dwm.c	2022-04-12 15:27:44.380918544 +0200
++++ dwm-6.3-custom/dwm.c	2022-04-12 17:01:09.451266979 +0200
 @@ -40,6 +40,12 @@
  #include <X11/extensions/Xinerama.h>
  #endif /* XINERAMA */
@@ -2222,7 +2224,7 @@ diff -urN dwm-6.3/dwm.c dwm-6.3-custom/dwm.c
  	return EXIT_SUCCESS;
 diff -urN dwm-6.3/vanitygaps.c dwm-6.3-custom/vanitygaps.c
 --- dwm-6.3/vanitygaps.c	1970-01-01 01:00:00.000000000 +0100
-+++ dwm-6.3-custom/vanitygaps.c	2022-04-12 15:27:44.380918544 +0200
++++ dwm-6.3-custom/vanitygaps.c	2022-04-12 17:01:09.451266979 +0200
 @@ -0,0 +1,809 @@
 +/* Key binding functions */
 +static void defaultgaps(const Arg *arg);

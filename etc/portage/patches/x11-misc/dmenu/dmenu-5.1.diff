@@ -1,6 +1,6 @@
 diff -urN dmenu-5.1/config.h dmenu-5.1-custom/config.h
 --- dmenu-5.1/config.h	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/config.h	2022-04-12 16:08:01.516436020 +0200
++++ dmenu-5.1-custom/config.h	2022-04-12 17:01:09.447933572 +0200
 @@ -0,0 +1,23 @@
 +/* See LICENSE file for copyright and license details. */
 +/* Default settings; can be overriden by command line. */
@@ -26,8 +26,8 @@ diff -urN dmenu-5.1/config.h dmenu-5.1-custom/config.h
 + */
 +static const char worddelimiters[] = " ";
 diff -urN dmenu-5.1/dmenu.1 dmenu-5.1-custom/dmenu.1
---- dmenu-5.1/dmenu.1	2022-02-11 12:31:56.000000000 +0100
-+++ dmenu-5.1-custom/dmenu.1	2022-04-12 15:57:18.406557191 +0200
+--- dmenu-5.1/dmenu.1	2022-04-12 17:01:09.447933572 +0200
++++ dmenu-5.1-custom/dmenu.1	2022-04-12 17:01:09.447933572 +0200
 @@ -3,7 +3,7 @@
  dmenu \- dynamic menu
  .SH SYNOPSIS
@@ -48,8 +48,8 @@ diff -urN dmenu-5.1/dmenu.1 dmenu-5.1-custom/dmenu.1
  dmenu lists items vertically, with the given number of lines.
  .TP
 diff -urN dmenu-5.1/dmenu.c dmenu-5.1-custom/dmenu.c
---- dmenu-5.1/dmenu.c	2022-02-11 12:31:56.000000000 +0100
-+++ dmenu-5.1-custom/dmenu.c	2022-04-12 15:57:18.406557191 +0200
+--- dmenu-5.1/dmenu.c	2022-04-12 17:01:09.447933572 +0200
++++ dmenu-5.1-custom/dmenu.c	2022-04-12 17:01:09.447933572 +0200
 @@ -37,7 +37,7 @@
  static char text[BUFSIZ] = "";
  static char *embed;
@@ -115,7 +115,7 @@ diff -urN dmenu-5.1/dmenu.c dmenu-5.1-custom/dmenu.c
  		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
 diff -urN dmenu-5.1/dmenu.c.orig dmenu-5.1-custom/dmenu.c.orig
 --- dmenu-5.1/dmenu.c.orig	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu.c.orig	2022-04-12 15:48:54.696752048 +0200
++++ dmenu-5.1-custom/dmenu.c.orig	2022-04-12 17:01:09.447933572 +0200
 @@ -0,0 +1,789 @@
 +/* See LICENSE file for copyright and license details. */
 +#include <ctype.h>
@@ -906,73 +906,87 @@ diff -urN dmenu-5.1/dmenu.c.orig dmenu-5.1-custom/dmenu.c.orig
 +
 +	return 1; /* unreachable */
 +}
-diff -urN dmenu-5.1/dmenu_passmenu2 dmenu-5.1-custom/dmenu_passmenu2
---- dmenu-5.1/dmenu_passmenu2	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu_passmenu2	2019-01-26 14:24:13.000000000 +0100
-@@ -0,0 +1,60 @@
+diff -urN dmenu-5.1/dmenu_keepassxc dmenu-5.1-custom/dmenu_keepassxc
+--- dmenu-5.1/dmenu_keepassxc	1970-01-01 01:00:00.000000000 +0100
++++ dmenu-5.1-custom/dmenu_keepassxc	2022-04-12 20:02:39.747314301 +0200
+@@ -0,0 +1,74 @@
 +#!/usr/bin/env bash
 +
-+shopt -s nullglob globstar
-+
-+typeit=0
-+if [[ $1 == "--type" ]]; then
-+	typeit=1
-+	shift
++# Path to keepass database
++if [ -f /mnt/maciej/Passwords.kdbx ]
++then
++  database="/mnt/maciej/Passwords.kdbx"
++elif [ -f /mnt/sftp/Passwords.kdbx ]
++then
++  database="/mnt/sftp/Passwords.kdbx"
++else
++  exit;
 +fi
 +
++# Path to gpg encpypted file containing password for the database
++passgpg="$HOME/.local/pass.gpg"
 +
-+STARTDIR=${PASSWORD_STORE_DIR-~/.password-store}
-+BASEDIR=$STARTDIR
-+DONE=0
-+LEVEL=0
-+PREVSELECTION=""
-+SELECTION=""
++[[ ! -e "$database" ]] && notify-send "keepmenu" "Please check if the database variable is set properly" && exit
++[[ ! -e "$passgpg" ]] && notify-send "keepmenu" "Please check if the passgpg variable is set properly" && exit
 +
-+while [ "$DONE" -eq 0 ] ; do 
-+  password_files=( "$STARTDIR"/* )
-+  password_files=( "${password_files[@]#"$STARTDIR"/}" )
-+  password_files=( "${password_files[@]%.gpg}" )
-+  
-+  if [ "$LEVEL" -ne 0 ] ; then
-+    password_files=(".." "${password_files[@]}") 
-+  fi
-+  entry=$(printf '%s\n' "${password_files[@]}" | dmenu "$@" -l 15)
-+  
-+  echo "entry: $entry"
-+  if [ -z "$entry" ] ; then
-+    DONE=1
-+    exit
-+  fi
-+  
-+  if [ "$entry" != ".." ] ; then
-+    PREVSELECTION=$SELECTION
-+    SELECTION="$SELECTION/$entry"
-+  
-+    # check if another dir
-+    if [ -d "$STARTDIR/$entry" ] ; then
-+      STARTDIR="$STARTDIR/$entry"
-+      LEVEL=$((LEVEL+1))
++# Customize dmenu
++dmenu="dmenu -i -l 20"
++
++# Timeout after which clipboard will be cleared
++timeout=15
++
++# Decrypt the password
++pass="$(gpg -d ${passgpg} 2> /dev/null)"
++
++# Extract entries list from the database
++entry=$(echo ${pass} | keepassxc-cli ls "${database}" 2> /dev/null | \
++    eval $dmenu)
++
++# Exits if no entry is selected
++[[ $entry ]] || exit
++
++# Checks if the entry selected is a group or a regular entry. If it is a group,
++# extract the entries of that group
++while true; do
++    if [[ ! "$entry" == */ ]]; then
++        details=$(echo ${pass} | keepassxc-cli show "${database}" "${entry}" 2> /dev/null | \
++            eval $dmenu)
++        break;
 +    else
-+      # not a directory so it must be a real password entry
-+  
-+      if [[ $typeit -eq 0 ]]; then
-+        pass show -c "$SELECTION" 2>/dev/null
-+      else
-+        xdotool - <<<"type --clearmodifiers -- $(pass show "$SELECTION" | head -n 1)"
-+      fi
-+      DONE=1
++        newentry=$(echo ${pass} | keepassxc-cli ls "${database}" "${entry}" 2> /dev/null | \
++            eval $dmenu)
++        entry=$entry$newentry
 +    fi
-+  
-+  else
-+    LEVEL=$((LEVEL-1))
-+    SELECTION=$PREVSELECTION
-+    STARTDIR="$BASEDIR/$SELECTION"
-+  fi
 +done
 +
++# Exit if nothing is selected
++[[ $details ]] || exit
++
++# Determines which field from details is selected 
++field=$(echo "$details" | cut -d ':' -f 1)
++
++# If the password field is selected, copy it safely to the clipboard and clear the
++# clipboard after the specified timeout.
++# If the selected field is not password. copy its contents to the clipboard
++if [[ "$field" == "Password" ]]; then
++    if [[ "$entry" =~ .*/ ]]; then
++        echo ${pass} | keepassxc-cli clip "${database}" "${entry}${gentry}" > /dev/null
++    else
++        echo ${pass} | keepassxc-cli clip "${database}" "${entry}" > /dev/null
++    fi
++    notify-send "keepassxc" "Password copied to clipboard for ${timeout} seconds"
++    sleep $timeout
++    echo '' | xclip -sel clip
++
++    # Remove entry from clipboard managers e.g. for copyq
++    # copyq remove 0 2> /dev/null
++else
++    echo "$details" | cut -d ':' -f 2- | sed 's/\s//' | xclip -sel clip
++    notify-send "keepassxc" "${field} copied to clipboard"
++fi
 diff -urN dmenu-5.1/dmenu_run_history dmenu-5.1-custom/dmenu_run_history
 --- dmenu-5.1/dmenu_run_history	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu_run_history	2022-03-06 01:27:02.943058882 +0100
++++ dmenu-5.1-custom/dmenu_run_history	2022-04-12 17:01:09.447933572 +0200
 @@ -0,0 +1,50 @@
 +#!/bin/sh
 +
@@ -1026,7 +1040,7 @@ diff -urN dmenu-5.1/dmenu_run_history dmenu-5.1-custom/dmenu_run_history
 +	| while read cmd; do ${SHELL:-"/bin/sh"} -c "$cmd" & done
 diff -urN dmenu-5.1/dmenu_todo dmenu-5.1-custom/dmenu_todo
 --- dmenu-5.1/dmenu_todo	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu_todo	2022-03-23 15:28:05.868402240 +0100
++++ dmenu-5.1-custom/dmenu_todo	2022-04-12 17:01:09.447933572 +0200
 @@ -0,0 +1,36 @@
 +#!/bin/sh
 +#
@@ -1066,7 +1080,7 @@ diff -urN dmenu-5.1/dmenu_todo dmenu-5.1-custom/dmenu_todo
 +exit 0
 diff -urN dmenu-5.1/dmenu_xmms2 dmenu-5.1-custom/dmenu_xmms2
 --- dmenu-5.1/dmenu_xmms2	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu_xmms2	2022-04-08 13:12:32.586183277 +0200
++++ dmenu-5.1-custom/dmenu_xmms2	2022-04-12 17:01:09.447933572 +0200
 @@ -0,0 +1,46 @@
 +#!/bin/sh
 +
@@ -1115,20 +1129,20 @@ diff -urN dmenu-5.1/dmenu_xmms2 dmenu-5.1-custom/dmenu_xmms2
 +
 +
 diff -urN dmenu-5.1/Makefile dmenu-5.1-custom/Makefile
---- dmenu-5.1/Makefile	2022-02-11 12:31:56.000000000 +0100
-+++ dmenu-5.1-custom/Makefile	2022-04-12 16:03:16.823127019 +0200
+--- dmenu-5.1/Makefile	2022-04-12 17:01:09.447933572 +0200
++++ dmenu-5.1-custom/Makefile	2022-04-12 18:15:06.687424627 +0200
 @@ -42,10 +42,13 @@
  
  install: all
  	mkdir -p $(DESTDIR)$(PREFIX)/bin
 -	cp -f dmenu dmenu_path dmenu_run stest $(DESTDIR)$(PREFIX)/bin
-+	cp -f dmenu dmenu_path dmenu_xmms2 dmenu_passmenu2 dmenu_todo dmenu_run stest $(DESTDIR)$(PREFIX)/bin
++	cp -f dmenu dmenu_path dmenu_xmms2 dmenu_keepassxc dmenu_todo dmenu_run stest $(DESTDIR)$(PREFIX)/bin
  	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu
  	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_path
  	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_run
 +	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_xmms2
 +	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_todo
-+	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_passmenu2
++	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_keepassxc
  	chmod 755 $(DESTDIR)$(PREFIX)/bin/stest
  	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
  	sed "s/VERSION/$(VERSION)/g" < dmenu.1 > $(DESTDIR)$(MANPREFIX)/man1/dmenu.1
@@ -1138,7 +1152,7 @@ diff -urN dmenu-5.1/Makefile dmenu-5.1-custom/Makefile
  		$(DESTDIR)$(PREFIX)/bin/dmenu_run\
 +		$(DESTDIR)$(PREFIX)/bin/dmenu_xmms2\
 +		$(DESTDIR)$(PREFIX)/bin/dmenu_todo\
-+		$(DESTDIR)$(PREFIX)/bin/dmenu_passmenu2\
++		$(DESTDIR)$(PREFIX)/bin/dmenu_keepassxc\
  		$(DESTDIR)$(PREFIX)/bin/stest\
  		$(DESTDIR)$(MANPREFIX)/man1/dmenu.1\
  		$(DESTDIR)$(MANPREFIX)/man1/stest.1
