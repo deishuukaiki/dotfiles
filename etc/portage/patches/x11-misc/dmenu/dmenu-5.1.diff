@@ -908,8 +908,8 @@ diff -urN dmenu-5.1/dmenu.c.orig dmenu-5.1-custom/dmenu.c.orig
 +}
 diff -urN dmenu-5.1/dmenu_keepassxc dmenu-5.1-custom/dmenu_keepassxc
 --- dmenu-5.1/dmenu_keepassxc	1970-01-01 01:00:00.000000000 +0100
-+++ dmenu-5.1-custom/dmenu_keepassxc	2022-04-12 22:06:37.162407330 +0200
-@@ -0,0 +1,71 @@
++++ dmenu-5.1-custom/dmenu_keepassxc	2022-04-14 18:25:14.724783294 +0200
+@@ -0,0 +1,72 @@
 +#!/usr/bin/env bash
 +
 +# Path to keepass database
@@ -955,7 +955,8 @@ diff -urN dmenu-5.1/dmenu_keepassxc dmenu-5.1-custom/dmenu_keepassxc
 +        break;
 +    else
 +        newentry=$(echo ${pass} | keepassxc-cli ls "${database}" "${entry}" 2> /dev/null | \
-+            eval $dmenu)
++            eval $dmenu || exit)
++        [[ $newentry ]] || exit
 +        entry=$entry$newentry
 +    fi
 +done
