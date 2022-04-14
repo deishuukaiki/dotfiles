@@ -74,12 +74,12 @@ eval "$(zoxide init zsh)"
     znap source softmoth/zsh-vim-mode
     znap source alexrochas/zsh-extract
 
-# VI mode cursor styling
-MODE_CURSOR_VIINS="#ffffff blinking bar"
-MODE_CURSOR_REPLACE="#ffffff blinking underline"
-MODE_CURSOR_VICMD="#ffffff block"
-MODE_CURSOR_SEARCH="#ffffff steady underline"
-MODE_CURSOR_VISUAL="#ffffff steady underline"
+# VIM mode cursor styling
+MODE_CURSOR_VIINS="blinking bar"
+MODE_CURSOR_REPLACE="blinking underline"
+MODE_CURSOR_VICMD="block"
+MODE_CURSOR_SEARCH="steady underline"
+MODE_CURSOR_VISUAL="steady underline"
 MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL"
 
 # AUTOSUGGESTIONS
@@ -92,9 +92,6 @@ ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
     alias ls="ls -w$(($(tput cols)/2)) --color=auto --quoting-style=literal --group-directories-first"
     alias ll="ls -lah1 --color=auto --quoting-style=literal --group-directories-first"
     alias la="ls -a -w$(($(tput cols)/2)) --color=auto --quoting-style=literal --group-directories-first"
-
-    # doas
-    alias sudo="doas"
 
     # ssh
     alias ssh223="ssh root@192.168.50.223"
