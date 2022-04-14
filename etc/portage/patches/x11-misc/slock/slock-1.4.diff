@@ -1,0 +1,201 @@
+diff -urN slock-1.4/config.def.h slock-1.4-custom/config.def.h
+--- slock-1.4/config.def.h	2016-11-20 01:31:23.000000000 +0100
++++ slock-1.4-custom/config.def.h	2022-04-14 17:52:41.324057166 +0200
+@@ -10,3 +10,6 @@
+ 
+ /* treat a cleared input like a wrong password (color) */
+ static const int failonclear = 1;
++
++/* time in seconds before the monitor shuts down */
++static const int monitortime = 5;
+diff -urN slock-1.4/config.h slock-1.4-custom/config.h
+--- slock-1.4/config.h	1970-01-01 01:00:00.000000000 +0100
++++ slock-1.4-custom/config.h	2022-04-14 17:58:39.714199689 +0200
+@@ -0,0 +1,15 @@
++/* user and group to drop privileges to */
++static const char *user  = "nobody";
++static const char *group = "nogroup";
++
++static const char *colorname[NUMCOLS] = {
++	[INIT] =   "black",     /* after initialization */
++	[INPUT] =  "#938aa9",   /* during input */
++	[FAILED] = "#c34043",   /* wrong password */
++};
++
++/* treat a cleared input like a wrong password (color) */
++static const int failonclear = 1;
++
++/* time in seconds before the monitor shuts down */
++static const int monitortime = 5;
+diff -urN slock-1.4/README slock-1.4-custom/README
+--- slock-1.4/README	2016-11-20 01:31:23.000000000 +0100
++++ slock-1.4-custom/README	1970-01-01 01:00:00.000000000 +0100
+@@ -1,24 +0,0 @@
+-slock - simple screen locker
+-============================
+-simple screen locker utility for X. 
+-
+-
+-Requirements
+-------------
+-In order to build slock you need the Xlib header files.
+-
+-
+-Installation
+-------------
+-Edit config.mk to match your local setup (slock is installed into
+-the /usr/local namespace by default).
+-
+-Afterwards enter the following command to build and install slock
+-(if necessary as root):
+-
+-    make clean install
+-
+-
+-Running slock
+--------------
+-Simply invoke the 'slock' command. To get out of it, enter your password.
+diff -urN slock-1.4/README.md slock-1.4-custom/README.md
+--- slock-1.4/README.md	1970-01-01 01:00:00.000000000 +0100
++++ slock-1.4-custom/README.md	2022-04-14 17:52:41.324057166 +0200
+@@ -0,0 +1,24 @@
++slock - simple screen locker
++============================
++simple screen locker utility for X. 
++
++
++Requirements
++------------
++In order to build slock you need the Xlib header files.
++
++
++Installation
++------------
++Edit config.mk to match your local setup (slock is installed into
++the /usr/local namespace by default).
++
++Afterwards enter the following command to build and install slock
++(if necessary as root):
++
++    make clean install
++
++
++Running slock
++-------------
++Simply invoke the 'slock' command. To get out of it, enter your password.
+diff -urN slock-1.4/slock.c slock-1.4-custom/slock.c
+--- slock-1.4/slock.c	2016-11-20 01:31:23.000000000 +0100
++++ slock-1.4-custom/slock.c	2022-04-14 17:52:41.324057166 +0200
+@@ -15,6 +15,7 @@
+ #include <unistd.h>
+ #include <sys/types.h>
+ #include <X11/extensions/Xrandr.h>
++#include <X11/extensions/dpms.h>
+ #include <X11/keysym.h>
+ #include <X11/Xlib.h>
+ #include <X11/Xutil.h>
+@@ -306,6 +307,7 @@
+ 	const char *hash;
+ 	Display *dpy;
+ 	int s, nlocks, nscreens;
++	CARD16 standby, suspend, off;
+ 
+ 	ARGBEGIN {
+ 	case 'v':
+@@ -366,6 +368,20 @@
+ 	if (nlocks != nscreens)
+ 		return 1;
+ 
++	/* DPMS magic to disable the monitor */
++	if (!DPMSCapable(dpy))
++		die("slock: DPMSCapable failed\n");
++	if (!DPMSEnable(dpy))
++		die("slock: DPMSEnable failed\n");
++	if (!DPMSGetTimeouts(dpy, &standby, &suspend, &off))
++		die("slock: DPMSGetTimeouts failed\n");
++	if (!standby || !suspend || !off)
++		die("slock: at least one DPMS variable is zero\n");
++	if (!DPMSSetTimeouts(dpy, monitortime, monitortime, monitortime))
++		die("slock: DPMSSetTimeouts failed\n");
++
++	XSync(dpy, 0);
++
+ 	/* run post-lock command */
+ 	if (argc > 0) {
+ 		switch (fork()) {
+@@ -383,5 +399,9 @@
+ 	/* everything is now blank. Wait for the correct password */
+ 	readpw(dpy, &rr, locks, nscreens, hash);
+ 
++	/* reset DPMS values to inital ones */
++	DPMSSetTimeouts(dpy, standby, suspend, off);
++	XSync(dpy, 0);
++
+ 	return 0;
+ }
+diff -urN slock-1.4/slock-dpms-1.4.diff slock-1.4-custom/slock-dpms-1.4.diff
+--- slock-1.4/slock-dpms-1.4.diff	1970-01-01 01:00:00.000000000 +0100
++++ slock-1.4-custom/slock-dpms-1.4.diff	2022-04-14 17:52:41.324057166 +0200
+@@ -0,0 +1,62 @@
++diff --git a/config.def.h b/config.def.h
++index 9855e21..d01bd38 100644
++--- a/config.def.h
+++++ b/config.def.h
++@@ -10,3 +10,6 @@ static const char *colorname[NUMCOLS] = {
++ 
++ /* treat a cleared input like a wrong password (color) */
++ static const int failonclear = 1;
+++
+++/* time in seconds before the monitor shuts down */
+++static const int monitortime = 5;
++diff --git a/slock.c b/slock.c
++index d2f0886..f65a43b 100644
++--- a/slock.c
+++++ b/slock.c
++@@ -15,6 +15,7 @@
++ #include <unistd.h>
++ #include <sys/types.h>
++ #include <X11/extensions/Xrandr.h>
+++#include <X11/extensions/dpms.h>
++ #include <X11/keysym.h>
++ #include <X11/Xlib.h>
++ #include <X11/Xutil.h>
++@@ -306,6 +307,7 @@ main(int argc, char **argv) {
++ 	const char *hash;
++ 	Display *dpy;
++ 	int s, nlocks, nscreens;
+++	CARD16 standby, suspend, off;
++ 
++ 	ARGBEGIN {
++ 	case 'v':
++@@ -366,6 +368,20 @@ main(int argc, char **argv) {
++ 	if (nlocks != nscreens)
++ 		return 1;
++ 
+++	/* DPMS magic to disable the monitor */
+++	if (!DPMSCapable(dpy))
+++		die("slock: DPMSCapable failed\n");
+++	if (!DPMSEnable(dpy))
+++		die("slock: DPMSEnable failed\n");
+++	if (!DPMSGetTimeouts(dpy, &standby, &suspend, &off))
+++		die("slock: DPMSGetTimeouts failed\n");
+++	if (!standby || !suspend || !off)
+++		die("slock: at least one DPMS variable is zero\n");
+++	if (!DPMSSetTimeouts(dpy, monitortime, monitortime, monitortime))
+++		die("slock: DPMSSetTimeouts failed\n");
+++
+++	XSync(dpy, 0);
+++
++ 	/* run post-lock command */
++ 	if (argc > 0) {
++ 		switch (fork()) {
++@@ -383,5 +399,9 @@ main(int argc, char **argv) {
++ 	/* everything is now blank. Wait for the correct password */
++ 	readpw(dpy, &rr, locks, nscreens, hash);
++ 
+++	/* reset DPMS values to inital ones */
+++	DPMSSetTimeouts(dpy, standby, suspend, off);
+++	XSync(dpy, 0);
+++
++ 	return 0;
++ }
