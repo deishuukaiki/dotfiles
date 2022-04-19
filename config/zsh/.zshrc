@@ -36,9 +36,10 @@ export ADOTDIR="$HOME/.config/antigen"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export GIT_PAGER=cat
+export WINEDLLOVERRIDES=winemenubuilder.exe=d
 
 # OTHER
-setopt extended_glob
+setopt extendedglob
 setopt interactivecomments
 setopt prompt_subst 
 
