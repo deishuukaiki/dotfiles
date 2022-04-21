@@ -13,7 +13,7 @@ vim.o.showtabline = 2
 vim.o.showmode = false
 vim.o.backup = false
 vim.o.writebackup = false
-vim.o.updatetime = 300
+vim.o.updatetime = 200
 vim.o.timeoutlen = 100
 vim.o.clipboard = "unnamedplus"
 vim.o.hlsearch = false
@@ -36,3 +36,4 @@ vim.bo.autoindent = true
 vim.o.expandtab = true
 vim.bo.expandtab = true
 
+vim.api.nvim_command('autocmd CursorHold,CursorHoldI <buffer> silent! :IndentBlanklineRefresh')
