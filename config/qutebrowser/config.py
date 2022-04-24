@@ -8,8 +8,8 @@ config.bind('<J>', 'tab-prev')
 config.bind('<K>', 'tab-next')
 
 # keepassxc extension
-config.bind('<Alt-Shift-u>', 'spawn --userscript qute-keepassxc --key B24370B2', mode='insert')
-config.bind('pw', 'spawn --userscript qute-keepassxc --key B24370B2', mode='normal')
+config.bind('<Alt-Shift-u>', 'spawn --userscript qute-keepassxc --key 309FBF3A', mode='insert')
+config.bind('pw', 'spawn --userscript qute-keepassxc --key 309FBF3A', mode='normal')
 
 # scroll
 config.bind('<j>', 'scroll-px 0 100')
@@ -32,8 +32,8 @@ config.set('content.notifications.enabled', False)
 c.downloads.location.directory = '~/downloads'
 
 # default pages
-c.url.default_page = 'http://home.mantrasultry.xyz'
-c.url.start_pages = 'http://home.mantrasultry.xyz'
+c.url.default_page = 'https://home.mantrasultry.xyz'
+c.url.start_pages = 'https://home.mantrasultry.xyz'
 c.url.searchengines = {'DEFAULT': 'https://searx.be/search?q={}'}
 
 # fonts and colors
@@ -43,7 +43,7 @@ c.url.searchengines = {'DEFAULT': 'https://searx.be/search?q={}'}
 config.source('nord-qutebrowser.py')
 
 # privacy
-config.set('content.canvas_reading', True)
+config.set('content.canvas_reading', False)
 config.set('content.webgl', False)
 
 config.set('content.fullscreen.window', True)
