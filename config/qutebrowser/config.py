@@ -8,8 +8,7 @@ config.bind('<J>', 'tab-prev')
 config.bind('<K>', 'tab-next')
 
 # keepassxc extension
-config.bind('<Alt-Shift-u>', 'spawn --userscript qute-keepassxc --key 309FBF3A', mode='insert')
-config.bind('pw', 'spawn --userscript qute-keepassxc --key 309FBF3A', mode='normal')
+config.bind('pw', 'spawn --userscript qute-pass')
 
 # scroll
 config.bind('<j>', 'scroll-px 0 100')
