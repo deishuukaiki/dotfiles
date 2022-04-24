@@ -45,5 +45,8 @@ config.source('nord-qutebrowser.py')
 # privacy
 config.set('content.canvas_reading', False)
 config.set('content.webgl', False)
+config.set('content.headers.user_agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36')
+config.set('content.headers.accept_language', 'en-US,en;q=0.5')
+config.set('content.headers.custom', {"accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"})
 
 config.set('content.fullscreen.window', True)
