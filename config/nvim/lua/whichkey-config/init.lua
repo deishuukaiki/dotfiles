@@ -1,7 +1,8 @@
 local wk = require("which-key")
 local mappings = {
-    c = {":ColorizerToggle<CR>", "Toggle Colorizer"},
+  c = {":ColorizerToggle<CR>", "Toggle Colorizer"},
   w = {":w<CR>", "Write"},
+  W = {":SudaWrite<CR>", "SudaWrite"},
   q = {":q<CR>", "Quit"},
   x = {":bdelete<CR>", "Close buffer"},
   e = {":NvimTreeToggle<CR>", "Explore"},

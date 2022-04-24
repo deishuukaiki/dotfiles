@@ -1,5 +1,4 @@
 require'nvim-tree'.setup {
-  auto_open = 1,
   actions = {
     open_file = {
       quit_on_open = true,

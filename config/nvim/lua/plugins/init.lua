@@ -48,4 +48,6 @@ return require('packer').startup(function()
     use {'lukas-reineke/indent-blankline.nvim'}
 
     use {'terrortylor/nvim-comment'}
+
+    use {'lambdalisue/suda.vim'}
 end)

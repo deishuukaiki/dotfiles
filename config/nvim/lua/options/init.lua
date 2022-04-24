@@ -37,3 +37,5 @@ vim.o.expandtab = true
 vim.bo.expandtab = true
 
 vim.api.nvim_command('autocmd CursorHold,CursorHoldI <buffer> silent! :IndentBlanklineRefresh')
+
+vim.cmd('let g:suda_smart_edit = 1')
