@@ -37,7 +37,7 @@ export GNUPGHOME="~/.config/gnupg"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export GIT_PAGER=cat
 export WINEDLLOVERRIDES=winemenubuilder.exe=d
-export PASSWORD_STORE_DIR="~/serwer/pass"
+export PASSWORD_STORE_DIR="serwer/pass"
 
 # OTHER
 setopt extendedglob
