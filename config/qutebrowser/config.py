@@ -9,6 +9,7 @@ config.bind('<K>', 'tab-next')
 
 # keepassxc extension
 config.bind('pw', 'spawn --userscript qute-pass')
+config.bind('pu', 'spawn --userscript qute-pass --unfiltered')
 
 # scroll
 config.bind('<j>', 'scroll-px 0 100')
