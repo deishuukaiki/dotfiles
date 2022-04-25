@@ -36,6 +36,8 @@ require'lspconfig'.rust_analyzer.setup {
   capabilities = capabilities,
 }
 
+require'lspconfig'.sqlls.setup{}
+
 local lspconfig = require'lspconfig'
 local configs = require'lspconfig.configs'
 
