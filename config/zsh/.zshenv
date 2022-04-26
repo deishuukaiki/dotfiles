@@ -8,3 +8,14 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export "_JAVA_OPTIONS=-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
+export VISUAL=/usr/bin/nvim
+export EDITOR=/usr/bin/nvim
+export TERMINAL=/usr/bin/kitty
+export PATH="$PATH:/home/maciej/.local/bin"
+export KEYTIMEOUT=10
+export BROWSER=qutebrowser
+export GNUPGHOME="~/.config/gnupg"
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export GIT_PAGER=cat
+export WINEDLLOVERRIDES=winemenubuilder.exe=d
+export PASSWORD_STORE_DIR="serwer/pass"

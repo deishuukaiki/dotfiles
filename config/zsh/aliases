@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# ls
+alias ls="ls -w$(($(tput cols)/2)) --color=auto --quoting-style=literal --group-directories-first"
+alias ll="ls -lah1 --color=auto --quoting-style=literal --group-directories-first"
+alias la="ls -a -w$(($(tput cols)/2)) --color=auto --quoting-style=literal --group-directories-first"
+
+# grep
+alias grep="grep --color=auto"
+
+# diff
+alias diff="diff --color=auto"
+
+# lf
+alias lf="lfcd"
+
+# ssh
+alias ssh223="ssh root@192.168.50.223"
+alias ssh107="ssh monika@192.168.50.107"
+alias ssh127="ssh maciej@192.168.50.127"
+alias ssh131="ssh maciej@192.168.50.131"
+
+# vnc
+alias vncserver="x11vnc -nomodtweak -forever -repeat -display :0"
+
+# wget
+alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
+
+# xmms2
+alias mclear='xmms2 clear'
+alias madd='xmms2 add'
+
+# cd
+alias cd1="cd .."
+alias cd2="cd ../.."
+alias cd3="cd ../../.."
+alias cd4="cd ../../../.."
+alias cd5="cd ../../../../.."
