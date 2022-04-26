@@ -2,15 +2,6 @@
 # ZSHRC #
 #########
 
-# PREVENT NESTED RANGER INSTANCES
-ranger() {
-    if [ -z "$RANGER_LEVEL" ]; then
-        /usr/bin/ranger "$@"
-    else
-        exit
-    fi
-}
-
 # GIT BRANCH
 function parse_git_branch() {
     git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/<\1> /p'
@@ -72,7 +63,6 @@ eval "$(zoxide init zsh)"
     # source plugins
     znap source zsh-users/zsh-completions
     znap source zsh-users/zsh-autosuggestions
-    znap source fdw/ranger-autojump
     znap source softmoth/zsh-vim-mode
     znap source alexrochas/zsh-extract
 
