@@ -35,7 +35,7 @@ cmd open ${{
     esac
 }}
 
-map <D> delete
+map D delete
 map <c-h> set hidden!
 map <backspace> set hidden!
 
