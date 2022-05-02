@@ -29,7 +29,7 @@ config.set('content.cookies.store', True)
 config.set('content.notifications.enabled', False)
 
 # download dir
-c.downloads.location.directory = '~/downloads'
+c.downloads.location.directory = '/home/$USER/downloads'
 
 # default pages
 c.url.default_page = 'https://home.mantrasultry.xyz'
