@@ -1,6 +1,7 @@
 export WINEPREFIX="$HOME/.local/wineprefixes/default"
 export CARGO_HOME="$HOME/.config/cargo"
-export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc"
+export GTK_RC_FILES="$XDG_CONFIG_HOME/gtk-1.0/gtkrc"
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 export GNUPGHOME="$HOME/.config/gnupg"
 export PATH="$PATH:/home/maciej/.local/lib/python3.9/site-packages/"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
@@ -19,3 +20,4 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 export GIT_PAGER=cat
 export WINEDLLOVERRIDES=winemenubuilder.exe=d
 export PASSWORD_STORE_DIR="serwer/pass"
+export XINITRC="$HOME/.config/X11/xinitrc"

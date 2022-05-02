@@ -1,0 +1,4 @@
+#!/bin/sh
+xrandr --newmode "1920x1080_72.00" 210.25 1920 2056 2256 2592 1080 1083 1088 1128 +HSync +VSync 
+xrandr --addmode DisplayPort-0 "1920x1080_72.00"
+xrandr --output DisplayPort-1 --mode 1920x1080 --pos 1920x450 --rotate left --output DisplayPort-0 --primary --mode 1920x1080_72.00 --pos 0x1080 --rotate normal --output DisplayPort-2 --mode 1920x1080 --pos 0x0 --rotate normal

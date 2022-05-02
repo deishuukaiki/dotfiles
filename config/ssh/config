@@ -1,0 +1,3 @@
+Host *
+    IdentityFile /home/maciej/.config/ssh/id_rsa
+    UserKnownHostsFile /home/maciej/.config/ssh/known_hosts

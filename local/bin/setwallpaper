@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Primary Monitor
+xwallpaper --output DisplayPort-0 --zoom ~/.local/share/xwallpaper/DisplayPort-0.png
+
+# Right Monitor
+xwallpaper --output DisplayPort-1 --zoom ~/.local/share/xwallpaper/DisplayPort-1.png
+
+# Upper Monitor
+xwallpaper --output DisplayPort-2 --zoom ~/.local/share/xwallpaper/DisplayPort-2.png

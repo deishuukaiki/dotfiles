@@ -1,0 +1,18 @@
+while true; do
+    if zenity --question --text="touhou xmodmap"
+    then
+        xmodmap -e 'keycode 38 = Left'
+        xmodmap -e 'keycode 40 = Right'
+        xmodmap -e 'keycode 25 = Up'
+        xmodmap -e 'keycode 39 = Down'
+        xmodmap -e 'keycode 50 = Shift_L'
+        xmodmap -e 'keycode 60 = z'
+        xmodmap -e 'keycode 61 = x'
+    else
+        setxkbmap pl
+        if zenity --question --text="exit?"
+        then
+            exit
+        fi
+    fi
+done

@@ -15,6 +15,7 @@ alias diff="diff --color=auto"
 alias lf="lfcd"
 
 # ssh
+alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config -i $XDG_CONFIG_HOME/ssh/id_rsa"
 alias ssh223="ssh root@192.168.50.223"
 alias ssh107="ssh monika@192.168.50.107"
 alias ssh127="ssh maciej@192.168.50.127"
@@ -36,3 +37,6 @@ alias cd2="cd ../.."
 alias cd3="cd ../../.."
 alias cd4="cd ../../../.."
 alias cd5="cd ../../../../.."
+
+# startx
+alias startx="startx $XINITRC"
