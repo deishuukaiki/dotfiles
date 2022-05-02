@@ -1,0 +1,3 @@
+#!/bin/sh
+HOME="$XDG_DATA_HOME/tigervnchome"
+exec /usr/bin/vncviewer "$@"
