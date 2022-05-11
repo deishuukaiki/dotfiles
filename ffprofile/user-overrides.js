@@ -1,0 +1,9 @@
+user_pref("keyword.enabled", true);
+user_pref("privacy.resistFingerprinting.letterboxing", false);
+user_pref("ui.prefersReducedMotion", 1);
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+user_pref("browser.startup.homepage", "https://home.mantrasultry.xyz");
+user_pref("browser.startup.page", 1);
+user_pref("media.eme.enabled", true);
+user_pref("browser.uidensity", 1);
+user_pref("network.proxy.type", 0);
