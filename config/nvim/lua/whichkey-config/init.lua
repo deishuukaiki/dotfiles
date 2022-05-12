@@ -1,5 +1,6 @@
 local wk = require("which-key")
 local mappings = {
+  t = {":ToggleTerm<CR>", "Toggle Terminal"},
   c = {":ColorizerToggle<CR>", "Toggle Colorizer"},
   w = {":w<CR>", "Write"},
   W = {":SudaWrite<CR>", "SudaWrite"},
