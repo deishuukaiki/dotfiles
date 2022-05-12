@@ -1,0 +1,29 @@
+#!/bin/bash
+PORT=$(pactl list sources | grep 'Active Port' | awk 'NF>1{print $NF}')
+
+if [ "$1" == "get" ] 
+then
+  case $PORT in
+    analog-input-mic)
+      MESSAGE=" Mic"
+      ;;
+    analog-input-linein)
+      MESSAGE=" Line"
+      ;;
+  esac
+  echo $MESSAGE
+elif [ "$1" == "toggle" ]
+then
+  # for some reason need to change port 2 times. otherwise it doesnt work. 
+  case $PORT in
+    analog-input-mic)
+      pactl set-source-port @DEFAULT_SOURCE@ analog-input-linein;
+      pactl set-source-port @DEFAULT_SOURCE@ analog-input-linein;
+      
+      ;;
+    analog-input-linein)
+      pactl set-source-port @DEFAULT_SOURCE@ analog-input-mic
+      pactl set-source-port @DEFAULT_SOURCE@ analog-input-mic
+      ;;
+  esac
+fi

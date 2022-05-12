@@ -1,0 +1,48 @@
+#!/bin/bash
+
+VOL=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '$1=="Volume:" {print $5}')
+MUTE=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+
+case $MUTE in
+  yes)
+    MESSAGE="婢 $VOL"
+    echo $MESSAGE
+    exit
+  ;;
+esac
+
+case $VOL in
+  0%)
+    MESSAGE="婢 $VOL"
+    ;;
+  [1-9]%)
+    MESSAGE=" $VOL"
+    ;;
+  [1-2][0-9]%) # 10-29%
+    MESSAGE=" $VOL"
+    ;;
+  3[0-3]%) # 30-33%
+    MESSAGE=" $VOL"
+    ;;
+  3[4-9]%) # 34-39%
+    MESSAGE=" $VOL"
+    ;;
+  [4-5][0-9]%) # 40-59%
+    MESSAGE=" $VOL"
+    ;;
+  6[0-7]%) # 60-67%
+    MESSAGE=" $VOL"
+    ;;
+  6[8-9]%) # 68-69%
+    MESSAGE="墳 $VOL"
+    ;;
+  [7-9][0-9]%) # 70-99%
+    MESSAGE="墳 $VOL"
+    ;;
+  1[0-5][0-9]%) # 100-150%
+    MESSAGE="墳 $VOL"
+    ;;
+esac
+
+echo $MESSAGE
+

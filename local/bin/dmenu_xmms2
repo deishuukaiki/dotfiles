@@ -1,0 +1,46 @@
+#!/bin/sh
+
+MESSAGE="
+play\n\
+stop\n\
+pause\n\
+next\n\
+prev\n\
+seek"
+
+MESSAGENEXT="
+next\n\
+prev\n\
+play\n\
+stop\n\
+pause\n\
+seek"
+
+MESSAGEPREV="
+prev\n\
+next\n\
+play\n\
+stop\n\
+pause\n\
+seek"
+
+            CMD=$(echo -e $MESSAGE | dmenu -l 6 -p "xmms2" "$@")
+            echo $CMD | xargs xmms2
+
+while (true); do
+    case $(echo $CMD | head -c 4) in
+        "prev")
+            CMD=$(echo -e $MESSAGEPREV | dmenu -l 6 -p "xmms2" "$@")
+            echo $CMD | xargs xmms2
+            ;;
+        "next")
+            CMD=$(echo -e $MESSAGENEXT | dmenu -l 6 -p "xmms2" "$@")
+            echo $CMD | xargs xmms2
+            ;;
+        * )
+            exit
+            ;;
+    esac
+done
+
+

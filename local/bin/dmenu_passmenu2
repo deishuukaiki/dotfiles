@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+shopt -s nullglob globstar
+
+STARTDIR=$PASSWORD_STORE_DIR
+BASEDIR=$STARTDIR
+DONE=0
+LEVEL=0
+SELECTION=""
+
+while [ "$DONE" -eq 0 ] ; do 
+    PASSWORDFILES=( "$STARTDIR"/* ) # create array with password files
+    PASSWORDFILES=( "${PASSWORDFILES[@]#"$STARTDIR"/}" ) # remove $STARTDIR from array values
+    PASSWORDFILES=( "${PASSWORDFILES[@]%.gpg}" ) # remove .gpg from array values
+
+    # if $LEVEL is other than 0, add ".." to password files
+    # it will be later used to go back to parent directory
+    if [ "$LEVEL" -ne 0 ] ; then
+        PASSWORDFILES=(".." "${PASSWORDFILES[@]}") 
+    fi
+
+    # spawn dmenu
+    ENTRY=$(printf '%s\n' "${PASSWORDFILES[@]}" | dmenu "$@" -l 15)
+
+    # if $ENTRY lenght is 0, quit. 
+    if [ -z "$ENTRY" ] ; then
+        DONE=1
+        exit
+    fi
+
+    # user hasn't chosen going back in file tree
+    if [ "$ENTRY" != ".." ] ; then
+        SELECTION="$SELECTION/$ENTRY"
+
+        # if user has chosen directory
+        if [ -d "$STARTDIR/$ENTRY" ] ; then
+            STARTDIR="$STARTDIR/$ENTRY"
+            LEVEL=$((LEVEL+1))
+        else
+            notify-send --urgency=normal --expire-time=10000 "Password copied to clipboard!" "$SELECTION"
+            pass show -c "$SELECTION" > /dev/null
+            DONE=1
+        fi
+    else
+        # user has chosen to go back in the file tree
+        LEVEL=$((LEVEL-1))
+        # go one directory back
+        SELECTION=$(grep -o -P '/.*(?=\/)' <<< $SELECTION)
+        STARTDIR="$BASEDIR/$SELECTION"
+    fi
+done
+echo "$SELECTION"
