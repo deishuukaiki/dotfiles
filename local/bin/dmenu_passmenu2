@@ -2,17 +2,21 @@
 
 shopt -s nullglob globstar
 
+function setpasswordfilesarray() {
+    PASSWORDFILES=( "$STARTDIR"/* ) # create array with password files
+    PASSWORDFILES=( "${PASSWORDFILES[@]#"$STARTDIR"/}" ) # remove $STARTDIR from array values
+    PASSWORDFILES=( "${PASSWORDFILES[@]%.gpg}" ) # remove .gpg from array values
+}
+
 STARTDIR=$PASSWORD_STORE_DIR
 BASEDIR=$STARTDIR
 DONE=0
 LEVEL=0
 SELECTION=""
 
-while [ "$DONE" -eq 0 ] ; do 
-    PASSWORDFILES=( "$STARTDIR"/* ) # create array with password files
-    PASSWORDFILES=( "${PASSWORDFILES[@]#"$STARTDIR"/}" ) # remove $STARTDIR from array values
-    PASSWORDFILES=( "${PASSWORDFILES[@]%.gpg}" ) # remove .gpg from array values
+setpasswordfilesarray
 
+while [ "$DONE" -eq 0 ] ; do 
     # if $LEVEL is other than 0, add ".." to password files
     # it will be later used to go back to parent directory
     if [ "$LEVEL" -ne 0 ] ; then
@@ -30,13 +34,25 @@ while [ "$DONE" -eq 0 ] ; do
 
     # user hasn't chosen going back in file tree
     if [ "$ENTRY" != ".." ] ; then
-        SELECTION="$SELECTION/$ENTRY"
+
+        # user input isn't present in $PASSWORDFILES
+        if [[ ! "${PASSWORDFILES[*]}" =~ $ENTRY || $ENTRY = "/*" ]] ; then
+            LEVEL=0
+            SELECTION=""
+            STARTDIR=$BASEDIR
+            PASSWORDFILES=( "$STARTDIR"/**/*.gpg ) # create array with password files
+            PASSWORDFILES=( "${PASSWORDFILES[@]#"$STARTDIR"/}" ) # remove $STARTDIR from array values
+            PASSWORDFILES=( "${PASSWORDFILES[@]%.gpg}" ) # remove .gpg from array values
+            mapfile -t PASSWORDFILES < <(printf -- '%s\n' "${PASSWORDFILES[@]}" | grep -i $ENTRY)
 
         # if user has chosen directory
-        if [ -d "$STARTDIR/$ENTRY" ] ; then
+        elif [ -d "$STARTDIR/$ENTRY" ] ; then
+            SELECTION="$SELECTION/$ENTRY"
             STARTDIR="$STARTDIR/$ENTRY"
             LEVEL=$((LEVEL+1))
+            setpasswordfilesarray
         else
+            SELECTION="$SELECTION/$ENTRY"
             notify-send --urgency=normal --expire-time=10000 "Password copied to clipboard!" "$SELECTION"
             pass show -c "$SELECTION" > /dev/null
             DONE=1
@@ -47,6 +63,7 @@ while [ "$DONE" -eq 0 ] ; do
         # go one directory back
         SELECTION=$(grep -o -P '/.*(?=\/)' <<< $SELECTION)
         STARTDIR="$BASEDIR/$SELECTION"
+        setpasswordfilesarray
     fi
 done
 echo "$SELECTION"
