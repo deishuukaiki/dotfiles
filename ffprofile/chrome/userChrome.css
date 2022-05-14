@@ -10,6 +10,11 @@
 :root {
   /* Tabbar: reduce tab margin */
   --tab-block-margin: 4px 3px !important;
+  --arrowpanel-background: #141318 !important;
+  --arrowpanel-border-color: #111115 !important;
+  --button-bgcolor: #1d1d24 !important;
+  --input-bgcolor: #222229 !important;
+  --toolbar-field-focus-background-color: #18171d !important;
 }
 
 /* Tab: Reduce height */
