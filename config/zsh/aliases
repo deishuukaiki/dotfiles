@@ -39,3 +39,9 @@ alias cd5="cd ../../../../.."
 
 # startx
 alias startx="startx $XINITRC"
+
+# zoxide
+alias zoxide-find="find . -type d -exec zoxide add {} \;"
+
+# yt-dlp
+alias yt-dlp="yt-dlp -o '%(title)s.%(ext)s'"
