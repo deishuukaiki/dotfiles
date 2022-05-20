@@ -30,6 +30,7 @@ return require('packer').startup(function()
     use {'hrsh7th/cmp-cmdline'}
     use {'hrsh7th/nvim-cmp'}
     use {'hrsh7th/cmp-vsnip'}
+    use {"L3MON4D3/LuaSnip"}
     use {'hrsh7th/vim-vsnip'}
     use {'onsails/lspkind-nvim'}
     use {'norcalli/nvim-colorizer.lua'}
