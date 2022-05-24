@@ -2,6 +2,10 @@ return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use 'rebelot/kanagawa.nvim' -- colorscheme
+    use 'sainnhe/sonokai' -- colorscheme
+    use 'yonlu/omni.vim' -- colorscheme
+    use 'bluz71/vim-moonfly-colors'
+    use 'folke/tokyonight.nvim'
     use {'nvim-treesitter/nvim-treesitter', run = ":TSUpdate"}
     use {
         'nvim-lualine/lualine.nvim',

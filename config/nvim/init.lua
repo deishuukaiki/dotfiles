@@ -1,7 +1,12 @@
 require('plugins')
 require('options')
 require('keybindings')
-vim.cmd('colorscheme kanagawa')
+vim.g.tokyonight_style = "night"
+-- vim.g.tokyonight_lualine_bold = true
+vim.cmd('colorscheme tokyonight')
+-- vim.cmd('colorscheme kanagawa')
+-- vim.cmd('colorscheme moonfly')
+-- vim.cmd('colorscheme omni')
 require('treesitter-config')
 require('lualine-config')
 require('bufferline-config')
