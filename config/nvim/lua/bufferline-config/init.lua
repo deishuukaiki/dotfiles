@@ -1,8 +1,8 @@
-require("bufferline").setup{
+require'bufferline'.setup{
     options = {
         show_buffer_close_icons = false,
         show_close_icon = false,
-        separator_style = "slant",
+        color_icons = true,
     },
 }
 vim.cmd[[
