@@ -6,7 +6,7 @@ require'nvim-tree'.setup {
   },
   view = {
       hide_root_folder = false,
-      width = 25,
+      width = 40,
   }
 }
 
