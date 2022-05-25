@@ -6,10 +6,10 @@ require'nvim-tree'.setup {
   },
   view = {
       hide_root_folder = false,
+      width = 25,
   }
 }
 
-vim.g.nvim_tree_width = 25
 vim.g.nvim_tree_gitignore = 1
 vim.g.nvim_tree_ident_markers = 1
 
