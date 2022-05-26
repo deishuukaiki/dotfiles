@@ -9,3 +9,5 @@ user_pref("browser.uidensity", 1);
 user_pref("network.proxy.type", 0);
 user_pref("dom.ipc.processCount", 12);
 user_pref("browser.preferences.defaultPerformanceSettings.enabled", false);
+user_pref("network.dns.disablePrefetchFromHTTPS, false");
+user_pref("network.predictor.enable-prefetch, true");
