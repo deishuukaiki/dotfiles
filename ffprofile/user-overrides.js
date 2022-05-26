@@ -7,3 +7,5 @@ user_pref("browser.startup.page", 1);
 user_pref("media.eme.enabled", true);
 user_pref("browser.uidensity", 1);
 user_pref("network.proxy.type", 0);
+user_pref("dom.ipc.processCount", 12);
+user_pref("browser.preferences.defaultPerformanceSettings.enabled", false);
