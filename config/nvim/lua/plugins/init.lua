@@ -41,4 +41,5 @@ return require('packer').startup(function()
     use {'lambdalisue/suda.vim'}
     use {"akinsho/toggleterm.nvim", tag = 'v1.*'}
     use {'tami5/lspsaga.nvim'}
+    use {"McAuleyPenney/tidy.nvim"}
 end)
