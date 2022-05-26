@@ -6,6 +6,7 @@ require('lualine').setup {
     always_divide_middle = true,
     -- section_separators = '',
     -- component_separators = '',
+    globalstatus = true,
  }
 }
 
